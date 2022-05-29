@@ -2,7 +2,7 @@ About
 -----
 
 This repo contains a [NixOS](https://nixos.org) module which NixOS module which
-hides both HTTP and SSH daemons behind SSL proxy on a same port.
+hides both HTTP and SSH daemons behind HTTPS proxy on a same port.
 
 **This repo should be considered as a draft.**
 
@@ -16,16 +16,16 @@ Usage
     # ...
 
     require = [
-    ../path/to/ssh-over-ssl/nix/default.nix
+    ../path/to/ssh-over-tls/nix/default.nix
     ];
 
     # ...
 
-    services.ssh-over-ssl = {
+    services.ssh-over-tls = {
       cert_pem = ../stunnel.pem;
       sshd_port = 22;
       httpd_port = 80;
-      ssl_port = 443;
+      tls_port = 443;
     };
 
     # ...
@@ -52,4 +52,4 @@ Usage
      ```
      The connection will be forwarded to your server's SSHD using SSL protocol.
      Use `-L/-R/-D` ssh forwarding as needed.
- 
+

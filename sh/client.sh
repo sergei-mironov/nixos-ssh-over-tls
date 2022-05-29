@@ -19,15 +19,20 @@ while test -n "$1" ; do
   case "$1" in
     -h|--help) echo "Usage: $0 [-L PORT] HOST[:PORT]" >&2 ; exit 1 ;;
     -L) LISTEN_PORT=$2 ; shift ;;
-    *) HOST=`echo $1 | tr ':@' '  ' | awk '{print $1}'`
-       PORT=`echo $1 | tr ':@' '  ' | awk '{print $2}'`
+    *) TLS_HOST=`echo $1 | tr ':@' '  ' | awk '{print $1}'`
+       TLS_PORT=`echo $1 | tr ':@' '  ' | awk '{print $2}'`
        if test -z "$PORT" ; then
-         PORT=443
+         TLS_PORT=443
        fi
        ;;
   esac
   shift 1
 done
+
+if test -z "$TLS_HOST"; then
+  echo "Specify HOST[:PORT] to connect to using TLS" >&2
+  exit 1
+fi
 
 touch $CWD/_stunnel.pid
 chown $U:$G $CWD/_stunnel.pid
@@ -43,7 +48,7 @@ output = /dev/stdout
 debug = 7
 [ssh]
 accept=$LISTEN_PORT
-connect=$HOST:$PORT
+connect=$TLS_HOST:$TLS_PORT
 # protocol = connect
 # protocolUsername = $U
 # protocolPassword = $P

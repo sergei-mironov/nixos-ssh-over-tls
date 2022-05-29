@@ -16,7 +16,6 @@ accept = 443
 connect = 127.0.0.1:2222
 EOF
 
-# cd /etc/ssl
 openssl genrsa 2048 > stunnel.key
 openssl req -new -key stunnel.key -x509 -days 1000 -out stunnel.crt
 cat stunnel.crt stunnel.key > stunnel.pem

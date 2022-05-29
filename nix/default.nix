@@ -1,11 +1,11 @@
 {pkgs, config, lib, ...}:
 let
-  cfg = config.services.ssh-over-ssl;
+  cfg = config.services.ssh-over-tls;
 in
 with lib;
 {
   options = {
-    services.ssh-over-ssl = {
+    services.ssh-over-tls = {
       httpd_port = mkOption {
         default = 80;
         type = with types; uniq int;
@@ -20,7 +20,7 @@ with lib;
           Port of the local SSHD daemon (should be run independently)
         '';
       };
-      ssl_port = mkOption {
+      tls_port = mkOption {
         default = 443;
         type = with types; uniq int;
         description = ''
@@ -31,7 +31,7 @@ with lib;
         default = ../stunnel.pem;
         type = with types; uniq path;
         description = ''
-          Path to the SSL private key FILE.pem.
+          Path to the TLS private key FILE.pem.
         '';
       };
     };
@@ -39,7 +39,7 @@ with lib;
 
   config =
     let
-      inherit (cfg) cert_pem httpd_port sshd_port ssl_port;
+      inherit (cfg) cert_pem httpd_port sshd_port tls_port;
     in
     {
       services.haproxy = {
@@ -60,7 +60,7 @@ with lib;
               timeout tunnel 600s
 
           frontend ssl
-              bind 0.0.0.0:${toString ssl_port} ssl crt ${cert_pem} no-sslv3
+              bind 0.0.0.0:${toString tls_port} ssl crt ${cert_pem} no-sslv3
               mode tcp
               option tcplog
               tcp-request inspect-delay 5s
