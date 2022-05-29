@@ -6,6 +6,8 @@ hides both HTTP and SSH daemons behind HTTPS proxy on a same port.
 
 **This repo should be considered as a draft.**
 
+![How it works](./scheme.png)
+
 Usage
 -----
 
