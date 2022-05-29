@@ -38,6 +38,6 @@ Usage
 3. Make sure your SSH and HTTPD servers are set up correctly (we assume they use
    ports 22 and 80 in the example above).
 
-4. On server, build the system with `nixos-rebuild switch`
+4. On the server, build the system with `nixos-rebuild switch`
 
-5. On client, run `sh sh/client.sh`
+5. On the client, run `sh sh/client.sh`
