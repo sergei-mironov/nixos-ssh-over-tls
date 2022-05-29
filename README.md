@@ -40,4 +40,16 @@ Usage
 
 4. On the server, build the system with `nixos-rebuild switch`
 
-5. On the client, run `sh sh/client.sh`
+5. On the client, run
+  - Stunnel client pointing to server's SSL port:
+    ```shell
+    sh sh/client.sh  -L 3443 IP:443
+    ```
+    where IP is the server's IP. Port 3443 is picked at will.
+  - SSH client to the client's local port 3443:
+    ```shell
+    ssh -p 3443 127.0.0.1
+    ```
+    The connection will be forwarded to your server's SSHD using SSL protocol.
+    Use `-L/-R/-D` ssh forwarding as needed.
+

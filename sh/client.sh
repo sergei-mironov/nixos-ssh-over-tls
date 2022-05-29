@@ -18,7 +18,7 @@ LISTEN_PORT=3443
 while test -n "$1" ; do
   case "$1" in
     -h|--help) echo "Usage: $0 [-L PORT] HOST[:PORT]" >&2 ; exit 1 ;;
-    -L) LISTEN_PORT=$2 ;;
+    -L) LISTEN_PORT=$2 ; shift ;;
     *) HOST=`echo $1 | tr ':@' '  ' | awk '{print $1}'`
        PORT=`echo $1 | tr ':@' '  ' | awk '{print $2}'`
        if test -z "$PORT" ; then
