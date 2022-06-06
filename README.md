@@ -1,7 +1,7 @@
 About
 -----
 
-This repo contains a [NixOS](https://nixos.org) module which NixOS module which
+This repo contains a [NixOS](https://nixos.org) module which 
 hides both HTTP and SSH daemons behind HTTPS proxy on a same port.
 
 **This repo should be considered as a draft.**
